@@ -71,18 +71,18 @@ const FAQAccordion = () => {
 	};
 
 	return (
-		<section className="relative w-full bg-white py-4 lg:py-6 mb-32 lg:mb-40">
+		<section className="relative w-full bg-white py-2 lg:py-6 mb-32 lg:mb-40">
 			<div className="container mx-auto px-4 lg:px-8 max-w-7xl">
-				<div className="flex flex-col lg:flex-row gap-8 lg:gap-16 items-start relative">
+				<div className="flex flex-col lg:flex-row gap-4 lg:gap-8 items-start relative">
 					{/* Left Side - Student Testimonials */}
 					<div className="flex-1 lg:max-w-lg lg:flex-shrink-0 pt-16 lg:pt-20">
 						<div className="flex flex-col space-y-8 lg:space-y-12">
 							{testimonialData.map((testimonial) => (
 								<div key={testimonial.id} className="flex flex-col">
 									{/* Testimonial with gray background matching reference */}
-									<div className="bg-gray-200 rounded-2xl lg:rounded-3xl p-5 lg:p-7 relative">
-										<p className="text-sm lg:text-base leading-relaxed text-gray-800 font-nunito">
-											<span className="font-bold">Sheff Students Say</span>{" "}
+									<div className="bg-[#F3F3F3] rounded-2xl lg:rounded-3xl p-5 lg:p-7 pb-8 lg:pb-10 relative">
+										<p className="text-base lg:text-lg leading-relaxed text-gray-800 font-nunito">
+											<span className="font-black">Sheff Students Say</span>{" "}
 											{testimonial.quote}
 										</p>
 									</div>
@@ -95,8 +95,8 @@ const FAQAccordion = () => {
 					<div className="flex-1 relative">
 						{/* FAQ Container with Full Green Background */}
 						<div
-							className="bg-green-200 rounded-[40px] lg:rounded-[50px] py-8 lg:py-12 px-6 lg:px-12"
-							style={{ backgroundColor: "rgba(187, 247, 208, 1)" }}>
+							className="rounded-[40px] lg:rounded-[50px] py-4 lg:py-6 px-6 lg:px-12"
+							style={{ backgroundColor: "rgba(0, 210, 100, 0.1)" }}>
 							<div className="space-y-0">
 								{faqData.map((item, index) => (
 									<div
@@ -106,70 +106,103 @@ const FAQAccordion = () => {
 										}`}>
 										{/* FAQ Item Header */}
 										<div
-											className="flex items-center justify-between py-4 lg:py-6 cursor-pointer group"
-											onClick={() => toggleItem(item.id)}>
+											className={`flex items-center justify-between py-3 lg:py-4 ${
+												item.id === 5 ? "" : "cursor-pointer group"
+											}`}
+											onClick={item.id === 5 ? undefined : () => toggleItem(item.id)}>
 											{/* Question */}
 											<div className="flex-1 pr-4 lg:pr-6">
-												<h3 className="text-lg lg:text-xl xl:text-2xl font-medium text-gray-900 leading-tight font-nunito group-hover:text-gray-700 transition-colors">
+												<h3 className={`text-lg lg:text-xl xl:text-2xl font-medium text-gray-900 leading-tight font-nunito ${
+													item.id === 5 ? "" : "group-hover:text-gray-700"
+												} transition-colors`}>
 													{item.question}
 												</h3>
 											</div>
 
-											{/* Plus Icon */}
-											<div className="flex-shrink-0 ml-4">
-												<motion.div
-													animate={{
-														rotate: openItem === item.id ? 45 : 0,
-													}}
-													transition={{
-														duration: 0.2,
-														ease: "easeInOut",
-													}}
-													className="w-8 h-8 lg:w-10 lg:h-10 flex items-center justify-center">
-													<IoAdd className="w-6 h-6 lg:w-8 lg:h-8 text-gray-900 stroke-2" />
-												</motion.div>
-											</div>
+											{/* Plus Icon - Only show for collapsible items */}
+											{item.id !== 5 && (
+												<div className="flex-shrink-0 ml-4">
+													<motion.div
+														animate={{
+															rotate: openItem === item.id ? 45 : 0,
+														}}
+														transition={{
+															duration: 0.2,
+															ease: "easeInOut",
+														}}
+														className="w-8 h-8 lg:w-10 lg:h-10 flex items-center justify-center">
+														<IoAdd className="w-6 h-6 lg:w-8 lg:h-8 text-gray-900 stroke-2" />
+													</motion.div>
+												</div>
+											)}
 										</div>
 
-										{/* Answer - Animated */}
-										<AnimatePresence>
-											{openItem === item.id && (
-												<motion.div
-													initial={{ height: 0, opacity: 0 }}
-													animate={{ height: "auto", opacity: 1 }}
-													exit={{ height: 0, opacity: 0 }}
-													transition={{
-														duration: 0.3,
-														ease: "easeInOut",
-													}}
-													className="overflow-hidden">
-													<div className="pb-4 lg:pb-6 pr-8 lg:pr-16">
-														{item.hasLinks ? (
-															<p className="text-sm lg:text-base leading-relaxed text-gray-800 font-nunito">
-																Email Welcome Question to{" "}
-																<a
-																	href="mailto:studentsunion@sheffield.ac.uk"
-																	className="underline hover:no-underline transition-all">
-																	studentsunion@sheffield.ac.uk
-																</a>{" "}
-																or DM our{" "}
-																<a
-																	href="https://www.instagram.com/sheffieldsu/"
-																	target="_blank"
-																	rel="noopener noreferrer"
-																	className="underline hover:no-underline transition-all">
-																	Instagram
-																</a>
-															</p>
-														) : (
-															<p className="text-sm lg:text-base leading-relaxed text-gray-800 font-nunito">
-																{item.answer}
-															</p>
-														)}
-													</div>
-												</motion.div>
-											)}
-										</AnimatePresence>
+										{/* Answer - Always show for "Got a question?", animated for others */}
+										{item.id === 5 ? (
+											<div className="pb-2 lg:pb-3 pr-8 lg:pr-16">
+												{item.hasLinks ? (
+													<p className="text-sm lg:text-base leading-relaxed text-gray-800 font-nunito">
+														Email Welcome Question to{" "}
+														<a
+															href="mailto:studentsunion@sheffield.ac.uk"
+															className="underline hover:no-underline transition-all">
+															studentsunion@sheffield.ac.uk
+														</a>{" "}
+														or DM our{" "}
+														<a
+															href="https://www.instagram.com/sheffieldsu/"
+															target="_blank"
+															rel="noopener noreferrer"
+															className="underline hover:no-underline transition-all">
+															Instagram
+														</a>
+													</p>
+												) : (
+													<p className="text-sm lg:text-base leading-relaxed text-gray-800 font-nunito">
+														{item.answer}
+													</p>
+												)}
+											</div>
+										) : (
+											<AnimatePresence>
+												{openItem === item.id && (
+													<motion.div
+														initial={{ height: 0, opacity: 0 }}
+														animate={{ height: "auto", opacity: 1 }}
+														exit={{ height: 0, opacity: 0 }}
+														transition={{
+															duration: 0.3,
+															ease: "easeInOut",
+														}}
+														className="overflow-hidden">
+														<div className="pb-2 lg:pb-3 pr-8 lg:pr-16">
+															{item.hasLinks ? (
+																<p className="text-sm lg:text-base leading-relaxed text-gray-800 font-nunito">
+																	Email Welcome Question to{" "}
+																	<a
+																		href="mailto:studentsunion@sheffield.ac.uk"
+																		className="underline hover:no-underline transition-all">
+																		studentsunion@sheffield.ac.uk
+																	</a>{" "}
+																	or DM our{" "}
+																	<a
+																		href="https://www.instagram.com/sheffieldsu/"
+																		target="_blank"
+																		rel="noopener noreferrer"
+																		className="underline hover:no-underline transition-all">
+																		Instagram
+																	</a>
+																</p>
+															) : (
+																<p className="text-sm lg:text-base leading-relaxed text-gray-800 font-nunito">
+																	{item.answer}
+																</p>
+															)}
+														</div>
+													</motion.div>
+												)}
+											</AnimatePresence>
+										)}
 									</div>
 								))}
 							</div>

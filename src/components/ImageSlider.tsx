@@ -43,7 +43,7 @@ const ImageSlider = () => {
   ];
 
   return (
-    <section className="relative w-full bg-white py-16 lg:py-20 overflow-hidden">
+    <section className="relative w-full bg-white py-8 sm:py-12 lg:py-20 overflow-hidden">
       <div className="relative w-full">
         <Swiper
           modules={[Autoplay]}

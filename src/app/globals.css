@@ -17,6 +17,8 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-nunito);
   --font-display: var(--font-inter);
+  --font-inter: var(--font-inter);
+  --font-nunito: var(--font-nunito);
   
   /* Custom Colors */
   --color-primary-purple: var(--primary-purple);

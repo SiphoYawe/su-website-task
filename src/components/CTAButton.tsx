@@ -15,7 +15,7 @@ interface CTAButtonProps {
 const CTAButton = ({ primaryText, secondaryText, href, onClick, className = '' }: CTAButtonProps) => {
   const buttonContent = (
     <motion.div 
-      className="bg-[#00A48F] rounded-[8px] cursor-pointer relative overflow-hidden flex items-start justify-between px-4 py-4 pb-8 w-full flex-1"
+      className="bg-[#00A48F] rounded-[8px] cursor-pointer relative overflow-hidden flex items-start justify-between px-4 py-4 pb-8 w-full h-full"
       whileHover={{ 
         scale: 1.02,
         boxShadow: "0 8px 20px rgba(0, 164, 143, 0.3)"
@@ -64,9 +64,9 @@ const CTAButton = ({ primaryText, secondaryText, href, onClick, className = '' }
   );
 
   return (
-    <div className={`relative ${className}`}>
+    <div className={`relative h-full ${className}`}>
       {href ? (
-        <Link href={href} className="block">
+        <Link href={href} className="block h-full">
           {buttonContent}
         </Link>
       ) : (
